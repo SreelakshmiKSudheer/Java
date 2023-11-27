@@ -32,7 +32,11 @@ class Node {
 }
 
 class Doubly_Linkedlist {
-    private Node Header = new Node(0);
+    private Node Header;
+
+    public Doubly_Linkedlist() {
+        Header = new Node(0);
+    }
 
     // Display
     public void display() {
@@ -84,23 +88,20 @@ class Doubly_Linkedlist {
     }
 
     public void insertarbitary(int data, int where) {
-        Node New = new Node(data);
+        Node ptr = Header;
 
-        if (Header == null) {
-            Header = New;
-        } else {
-            Node ptr = Header;
+        while (ptr != null) {
+            if (ptr.getdata() == where) {
+                Node New = new Node(data);
 
-            while (ptr.getNext() != null) {
-                while (ptr.getdata() != where) {
-                    ptr = ptr.getNext();
-                }
+                New.setPrev(ptr);
+                New.setNext(ptr.getNext());
+                ptr.setNext(New);
 
+                return;
             }
+            ptr = ptr.getNext();
 
-            New.setPrev(ptr);
-            New.setNext(ptr.getNext());
-            ptr.setNext(New);
         }
 
     }
@@ -147,33 +148,34 @@ class Doubly_Linkedlist {
     }
 
     public int deletearbitary(int where) {
-        int item;
 
-        if (Header.getNext() == null) {
-            item = -99999;
+        Node ptr = Header.getNext();
+
+        if (ptr == null) {
             System.out.println("No element. Cannot delete");
 
         } else {
 
-            Node ptr = Header.getNext();
-            Node ptr1 = Header;
-
-            while (ptr.getNext() != null) {
-                while (ptr.getdata() != where) {
-                    ptr1 = ptr;
-                    ptr = ptr.getNext();
-                }
+            while (ptr.getdata() != where && ptr != null) {
+                ptr = ptr.getNext();
             }
+            if (ptr.getdata() == where) {
+                Node ptr1 = ptr.getPrev();
+                Node ptr2 = ptr.getNext();
+                ptr1.setNext(ptr2);
 
-            item = ptr.getdata();
-            ptr1.setNext(ptr.getNext());
-            ptr.getNext().setPrev(ptr1);
-            System.out.println("Deleted item = " + item);
+                if (ptr2 != null)
+                    ptr2.setPrev(ptr1);
+
+                return ptr.getdata();
+
+            } else
+                System.out.println(where + " not found");
 
         }
-
-        return item;
+        return -99999;
     }
+
 }
 
 public class DoublyLinkedlist {
@@ -185,8 +187,8 @@ public class DoublyLinkedlist {
 
         DLL.display();
 
-        // DLL.deletefront();
-        // DLL.display();
+        DLL.deletefront();
+        DLL.display();
         DLL.deletearbitary(2);
         DLL.display();
         DLL.deleteend();
