@@ -14,8 +14,8 @@ The repository is organized as follows:
 .
 ├── Introduction
 │   ├── If_Else.java
-│   ├── Challenge2.java
-│   └── ...
+│   ├── ScannerINOUT.java
+│   └── OutputFormatting.java
 ├── Category2
 │   ├── Challenge1.java
 │   ├── Challenge2.java
